@@ -5,9 +5,11 @@ import * as React from 'react';
 import './Entity.css';
 
 import { TranslationProxy } from 'core/translation';
+import { Localized } from '@fluent/react';
 
 import type { Entity as EntityType } from 'core/api';
 import type { Locale } from 'core/locale';
+import type { NavigationParams } from 'core/navigation';
 
 type Props = {
     checkedForBatchEditing: boolean,
@@ -16,9 +18,10 @@ type Props = {
     isReadOnlyEditor: boolean,
     isTranslator: boolean,
     locale: Locale,
-    search: ?string,
     selected: boolean,
     selectEntity: Function,
+    getSiblingEntities: Function,
+    parameters: NavigationParams,
 };
 
 /**
@@ -97,14 +100,35 @@ export default class Entity extends React.Component<Props> {
         this.props.selectEntity(this.props.entity);
     };
 
+
+    getSiblingEntities = (e: SyntheticMouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        this.props.getSiblingEntities(this.props.entity.pk);
+    };
+
     toggleForBatchEditing: (e: SyntheticMouseEvent<HTMLSpanElement>) => void = (
         e: SyntheticMouseEvent<HTMLSpanElement>,
     ) => {
         const { entity, isReadOnlyEditor, isTranslator } = this.props;
 
         if (isTranslator && !isReadOnlyEditor) {
+            e.stopPropagation();
             this.props.toggleForBatchEditing(entity.pk, e.shiftKey);
         }
+    };
+
+    areFiltersApplied = () => {
+        const parameters = this.props.parameters;
+        if (
+            parameters.status != null ||
+            parameters.extra != null ||
+            parameters.tag != null ||
+            parameters.time != null ||
+            parameters.author != null
+        ) {
+            return true;
+        }
+        return false;
     };
 
     render(): React.Element<'li'> {
@@ -114,8 +138,8 @@ export default class Entity extends React.Component<Props> {
             isReadOnlyEditor,
             isTranslator,
             locale,
-            search,
             selected,
+            parameters,
         } = this.props;
 
         const classSelected = selected ? 'selected' : '';
@@ -134,12 +158,27 @@ export default class Entity extends React.Component<Props> {
                     className='status fa'
                     onClick={this.toggleForBatchEditing}
                 />
+                {classSelected ? (
+                    <div>
+                        {parameters.search || this.areFiltersApplied() ? (
+                            <Localized id='entitieslist-Entity--sibling-strings-title'>
+                                <i
+                                    className={
+                                        'sibling-entities fas fa-arrows-alt-v'
+                                    }
+                                    title='Click to reveal sibling strings'
+                                    onClick={this.getSiblingEntities}
+                                ></i>
+                            </Localized>
+                        ) : null}
+                    </div>
+                ) : null}
                 <div>
                     <p className='source-string'>
                         <TranslationProxy
                             content={entity.original}
                             format={entity.format}
-                            search={search}
+                            search={parameters.search}
                         />
                     </p>
                     <p
@@ -151,7 +190,7 @@ export default class Entity extends React.Component<Props> {
                         <TranslationProxy
                             content={entity.translation[0].string}
                             format={entity.format}
-                            search={search}
+                            search={parameters.search}
                         />
                     </p>
                 </div>

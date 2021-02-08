@@ -92,6 +92,13 @@ export type Entity = {|
     +translation: Array<EntityTranslation>,
     +readonly: boolean,
 |};
+/**
+ * Lists of preceding and succeeding entities
+ */
+export type EntitySiblings = {|
+    +preceding: Array<Entity>,
+    +succeeding: Array<Entity>,
+|};
 
 /**
  * List of Entity objects.
