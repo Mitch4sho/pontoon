@@ -144,10 +144,9 @@ export function getSiblingEntities(
                 // dispatch siblings
             }
         });
-        
 
         //if siblings are not in the list replace those that need to be replace
-        
+
         // replace preceding
         preceding.forEach((item) => {
             const check = entityIds.every((id) => id !== item.pk);

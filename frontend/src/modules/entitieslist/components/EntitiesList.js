@@ -225,7 +225,7 @@ export class EntitiesListBase extends React.Component<InternalProps> {
         );
     };
 
-    getSiblingEntities = (entity: number) => {
+    getSiblingEntities: (entity: number) => void = (entity: number) => {
         const entityIds = this.props.entities.entities.map(
             (entity) => entity.pk,
         );

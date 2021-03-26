@@ -100,8 +100,9 @@ export default class Entity extends React.Component<Props> {
         this.props.selectEntity(this.props.entity);
     };
 
-
-    getSiblingEntities = (e: SyntheticMouseEvent<HTMLButtonElement>) => {
+    getSiblingEntities: (e: SyntheticMouseEvent<HTMLButtonElement>) => void = (
+        e: SyntheticMouseEvent<HTMLButtonElement>,
+    ) => {
         e.stopPropagation();
         this.props.getSiblingEntities(this.props.entity.pk);
     };
@@ -117,7 +118,7 @@ export default class Entity extends React.Component<Props> {
         }
     };
 
-    areFiltersApplied = () => {
+    areFiltersApplied: () => boolean = () => {
         const parameters = this.props.parameters;
         if (
             parameters.status != null ||
