@@ -123,46 +123,9 @@ export function get(
     };
 }
 
-export function getSiblingEntities(
-    entity: number,
-    locale: string,
-    entityIds: Array<number>,
-): Function {
+export function getSiblingEntities(entity: number, locale: string): Function {
     return async (dispatch) => {
         const siblings = await api.entity.getSiblingEntities(entity, locale);
-        const preceding = siblings.preceding;
-        const succeeding = siblings.succeeding;
-        const precedingSiblings = [];
-        const succeedingSiblings = [];
-
-        // check if siblings are in the the list
-        entityIds.forEach((id) => {
-            const check = preceding.every((item) => item.pk !== id);
-            const check2 = succeeding.every((item) => item.pk !== id);
-
-            if (check && check2) {
-                // dispatch siblings
-            }
-        });
-
-        //if siblings are not in the list replace those that need to be replace
-
-        // replace preceding
-        preceding.forEach((item) => {
-            const check = entityIds.every((id) => id !== item.pk);
-            if (check) {
-                precedingSiblings.push(item);
-            }
-        });
-
-        //replace succeeding
-        succeeding.forEach((item) => {
-            const check = entityIds.every((id) => id !== item.pk);
-            if (check) {
-                succeedingSiblings.push(item);
-            }
-        });
-
         if (siblings) {
             dispatch(receiveSiblings(siblings, entity));
         }

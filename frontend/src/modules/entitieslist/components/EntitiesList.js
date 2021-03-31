@@ -226,13 +226,8 @@ export class EntitiesListBase extends React.Component<InternalProps> {
     };
 
     getSiblingEntities: (entity: number) => void = (entity: number) => {
-        const entityIds = this.props.entities.entities.map(
-            (entity) => entity.pk,
-        );
         const { dispatch, locale } = this.props;
-        dispatch(
-            entities.actions.getSiblingEntities(entity, locale.code, entityIds),
-        );
+        dispatch(entities.actions.getSiblingEntities(entity, locale.code));
     };
 
     toggleForBatchEditing: (
