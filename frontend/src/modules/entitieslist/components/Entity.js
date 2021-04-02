@@ -21,6 +21,7 @@ type Props = {
     selected: boolean,
     selectEntity: Function,
     getSiblingEntities: Function,
+    siblings: boolean,
     parameters: NavigationParams,
 };
 
@@ -140,6 +141,7 @@ export default class Entity extends React.Component<Props> {
             isTranslator,
             locale,
             selected,
+            siblings,
             parameters,
         } = this.props;
 
@@ -150,9 +152,10 @@ export default class Entity extends React.Component<Props> {
 
         const classChecked = checkedForBatchEditing ? 'checked' : '';
 
+        const classSiblings = siblings ? 'sibling' : '';
         return (
             <li
-                className={`entity ${this.status} ${classSelected} ${classBatchEditable} ${classChecked}`}
+                className={`entity ${this.status} ${classSelected} ${classBatchEditable} ${classChecked} ${classSiblings}`}
                 onClick={this.selectEntity}
             >
                 <span

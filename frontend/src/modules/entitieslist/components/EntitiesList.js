@@ -365,6 +365,9 @@ export class EntitiesListBase extends React.Component<InternalProps> {
                                     !props.batchactions.entities.length &&
                                     entity.pk === props.parameters.entity;
 
+                                const siblings =
+                                    entity.pk === props.parameters.entity;
+
                                 return (
                                     <Entity
                                         checkedForBatchEditing={props.batchactions.entities.includes(
@@ -385,6 +388,7 @@ export class EntitiesListBase extends React.Component<InternalProps> {
                                         getSiblingEntities={
                                             this.getSiblingEntities
                                         }
+                                        siblings={siblings}
                                         parameters={parameters}
                                     />
                                 );
