@@ -64,25 +64,13 @@ function injectSiblingEntities(
         ...siblings.succeeding,
     ];
 
-    siblings.preceding.forEach((sibling) => {
-        const i = entities.findIndex((item) => item.pk === sibling.pk);
-        entities.forEach((e) => {
-            if (entities.indexOf(e) === i) {
-                list.splice(list.indexOf(sibling), 1);
-            }
-        });
-    });
-
-    siblings.succeeding.forEach((sibling) => {
-        const i = entities.findIndex((item) => item.pk === sibling.pk);
-        entities.forEach((e) => {
-            if (entities.indexOf(e) === i) {
-                list.splice(list.indexOf(sibling), 1);
-            }
-        });
-    });
-
     entities.splice(index, 1, ...list);
+
+    entities = entities.filter(
+        (currentValue, index, array) =>
+            array.findIndex((e) => e.pk === currentValue.pk) === index,
+    );
+
     return entities;
 }
 

@@ -104,6 +104,10 @@
 }
 
 .entity .sibling-entities {
+    color: #333941;
+}
+
+.entity .sibling-entities-icon {
     color: #aaa;
     left: 19px;
     top: 39px;
@@ -113,6 +117,6 @@
     font-size: 16px;
 }
 
-.entity .sibling-entities:hover {
+.entity .sibling-entities-icon:hover {
     color: #7bc876;
 }

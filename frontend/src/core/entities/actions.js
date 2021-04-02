@@ -126,6 +126,7 @@ export function get(
 export function getSiblingEntities(entity: number, locale: string): Function {
     return async (dispatch) => {
         const siblings = await api.entity.getSiblingEntities(entity, locale);
+
         if (siblings) {
             dispatch(receiveSiblings(siblings, entity));
         }

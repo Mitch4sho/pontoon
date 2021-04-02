@@ -165,7 +165,7 @@ export default class Entity extends React.Component<Props> {
                             <Localized id='entitieslist-Entity--sibling-strings-title'>
                                 <i
                                     className={
-                                        'sibling-entities fas fa-arrows-alt-v'
+                                        'sibling-entities-icon fas fa-arrows-alt-v'
                                     }
                                     title='Click to reveal sibling strings'
                                     onClick={this.getSiblingEntities}

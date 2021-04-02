@@ -227,6 +227,7 @@ export class EntitiesListBase extends React.Component<InternalProps> {
 
     getSiblingEntities: (entity: number) => void = (entity: number) => {
         const { dispatch, locale } = this.props;
+
         dispatch(entities.actions.getSiblingEntities(entity, locale.code));
     };
 
@@ -342,7 +343,6 @@ export class EntitiesListBase extends React.Component<InternalProps> {
 
         // InfiniteScroll will display information about loading during the request
         const hasMore = props.entities.fetching || props.entities.hasMore;
-
         return (
             <div className='entities unselectable' ref={this.list}>
                 <InfiniteScroll
